@@ -1,19 +1,24 @@
-import { serialize } from 'next-mdx-remote/serialize';
-import React from 'react';
-import { MDXRemote } from 'next-mdx-remote';
+import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill';
 
-const MDXRenderer = ({ mdxSource }) => {
-  return <MDXRemote {...mdxSource} />;
-};
+function MDXRenderer() {
+  const [text, setText] = useState('# Título\n\nEste es un párrafo de texto en **negrita**.');
+
+  const handleTextChange = (value) => {
+    setText(value);
+    console.log(text);
+  };
+
+  return (
+    <div className="app-container">
+      <ReactQuill value={text} onChange={handleTextChange} />
+      <hr />
+      Texto: 
+      <ReactMarkdown className="markdown-container" source={text} />
+    </div>
+  );
+}
 
 export default MDXRenderer;
-
-export async function getMDXStaticProps(mdxContent) {
-  const mdxSource = await serialize(mdxContent);
-
-  return {
-    props: {
-      mdxSource,
-    },
-  };
-}

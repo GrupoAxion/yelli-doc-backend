@@ -132,7 +132,7 @@ export const Playground = () => {
       },
     }),
     label: (open) => ({
-      fontWeight: open ? 600 : undefined,
+      fontWeight: open ? 600 : 600,
     }),
   };
   
@@ -177,48 +177,26 @@ export const Playground = () => {
 
           <div style={{ flex: 1, marginBottom: '32px' }}>
             <Menu menuItemStyles={menuItemStyles}>
-              <MenuItem icon={< SettingsIcon />}>
-                <Link href="/seting">
-                  Configuración
-                </Link>
+
+              <MenuItem icon={< SettingsIcon />} component={<Link href="/seting" />}>
+                Configuración
               </MenuItem>
 
               <SubMenu
                 label="Desarrollo"
                 icon={ <ComputerIcon />}
               >
-                <SubMenu label="Documentación" icon={<MenuBookIcon />}>
-                  <MenuItem> Documentación </MenuItem>
-                </SubMenu>
-                <SubMenu label="Api" icon={<CodeIcon />}>
-                  <MenuItem> Doc </MenuItem>
-                </SubMenu>
+                <MenuItem icon={< DescriptionIcon />} component={<Link href="/docs" />}>
+                  Documentación
+                </MenuItem>
+                <MenuItem icon={< CodeIcon />} component={<Link href="/seting" />}>
+                  Api
+                </MenuItem>
 
               </SubMenu>
               <SubMenu label="Guía de usuario" icon={<MenuBookIcon />}>
-                <MenuItem> Doc </MenuItem>
+                <MenuItem> Documentación </MenuItem>
               </SubMenu>
-              {/* <SubMenu label="Referencia Api" icon={<CodeIcon />}>
-                <MenuItem> Dark</MenuItem>
-                <MenuItem> Light</MenuItem>
-              </SubMenu>
-              <SubMenu label="Components" icon={<Diamond />}>
-                <MenuItem> Grid</MenuItem>
-                <MenuItem> Layout</MenuItem>
-                <SubMenu label="Forms">
-                  <MenuItem> Input</MenuItem>
-                  <MenuItem> Select</MenuItem>
-                  <SubMenu label="More">
-                    <MenuItem> CheckBox</MenuItem>
-                    <MenuItem> Radio</MenuItem>
-                  </SubMenu>
-                </SubMenu>
-              </SubMenu>
-              <SubMenu label="E-commerce" icon={<ShoppingCart />}>
-                <MenuItem> Product</MenuItem>
-                <MenuItem> Orders</MenuItem>
-                <MenuItem> Credit card</MenuItem>
-              </SubMenu> */}
             </Menu>
 
             <div style={{ padding: '0 24px', marginBottom: '8px', marginTop: '32px' }}>

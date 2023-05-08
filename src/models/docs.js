@@ -8,6 +8,9 @@ const docsSchema = new mongoose.Schema({
   text: {
     type: String,
   },
+  label: {
+    type: String
+  }
 });
 
 const Docs = mongoose.models.Docs || mongoose.model('Docs', docsSchema);

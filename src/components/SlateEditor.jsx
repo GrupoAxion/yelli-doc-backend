@@ -1,43 +1,51 @@
-import React, { useMemo, useState } from "react";
-import { createEditor } from "slate";
-import { Slate, Editable, withReact } from "slate-react";
+import React, { useRef, useState } from 'react';
+import { render } from 'react-dom';
 
-const SlateEditor = ({ onContentChange }) => {
-  const editor = useMemo(() => withReact(createEditor()), []);
-  const [value, setValue] = useState([
-    {
-      type: "paragraph",
-      children: [{ text: `---
-      title: Mi página de ejemplo
-      date: 2023-04-14
-      ---
-      
-      import MyReactComponent from './MyReactComponent';
-      
-      # Bienvenido a mi página de ejemplo en MDX
-      
-      Esta es una página de ejemplo en **MDX** que combina Markdown y componentes de React.
-      
-      Aquí hay un componente de React importado en este archivo MDX:
-      
-      <MyReactComponent />
-      
-      ## Más sobre MDX
-      
-      MDX es una extensión de Markdown que te permite utilizar componentes de React junto con la sintaxis de Markdown. Esto es especialmente útil para crear contenido dinámico y reutilizable en tus documentos y páginas web.
-      ` }],
-    },
-  ]);
+import EmailEditor from 'react-email-editor';
 
-  const handleChange = (newValue) => {
-    setValue(newValue);
-    if (onContentChange) onContentChange(newValue);
+const SlateEditor = (props) => {
+  const emailEditorRef = useRef(null);
+  const [html, sethtml] = useState("<h1> Generando ...</h1>")
+  const exportHtml = () => {
+    emailEditorRef.current.editor.exportHtml((data) => {
+      const { design, html } = data;
+      console.log('exportHtml', html);
+      sethtml(html)
+    });
+  };
+
+  const onReady = () => {
+    // editor is ready
+    // you can load your template here;
+    // const templateJson = {};
+    // emailEditorRef.current.editor.loadDesign(templateJson);
   };
 
   return (
-    <Slate editor={editor} value={value} onChange={handleChange}>
-      <Editable />
-    </Slate>
+    <div>
+      <h1></h1>
+      <div>
+        <button onClick={exportHtml}>Export HTML</button>
+      </div>
+
+      <EmailEditor ref={emailEditorRef} onReady={onReady} />
+
+      <hr />
+      <br />
+      <div dangerouslySetInnerHTML={{ __html: html }} />
+      <div>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam dolorum ut nesciunt. Optio tempora blanditiis ipsum minima pariatur obcaecati culpa, quos illum quibusdam voluptatem doloribus in nisi maxime, repellat at!
+      </div>
+      <div>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam dolorum ut nesciunt. Optio tempora blanditiis ipsum minima pariatur obcaecati culpa, quos illum quibusdam voluptatem doloribus in nisi maxime, repellat at!
+      </div>
+      <div>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam dolorum ut nesciunt. Optio tempora blanditiis ipsum minima pariatur obcaecati culpa, quos illum quibusdam voluptatem doloribus in nisi maxime, repellat at!
+      </div>
+      <div>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam dolorum ut nesciunt. Optio tempora blanditiis ipsum minima pariatur obcaecati culpa, quos illum quibusdam voluptatem doloribus in nisi maxime, repellat at!
+      </div>
+    </div>
   );
 };
 
